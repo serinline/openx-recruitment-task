@@ -32,10 +32,21 @@ public class Solutions {
         return titles;
     }
 
-    List<User> findClosestNeighbour(){
-        List<User> users = new ArrayList<>();
+    public Map<Integer, Double> findClosestNeighbour(List<User> users){
+        Map<Integer, Double> neighbours = new HashMap<>();
+        for (User start : users){
+            List<Double> tmp = new ArrayList<>();
+            for (User end : users){
+                if(!start.equals(end)) {
+                    Double d = utils.getDistance(start.getAddress().getGeo(), end.getAddress().getGeo());
+                    tmp.add(d);
+                }
+            }
+            Collections.sort(tmp);
+            neighbours.put(start.getId(), tmp.get(0));
+        }
 
-        return users;
+        return neighbours;
     }
 
 }

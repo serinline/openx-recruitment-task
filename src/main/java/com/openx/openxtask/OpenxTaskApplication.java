@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @SpringBootApplication
@@ -30,6 +31,10 @@ public class OpenxTaskApplication {
         List<String> task2;
         task2 = s.findNotUniqueTitles(postRepository.getPostList());
         System.out.print(task2);
+
+        Map<Integer, Double> task3;
+        task3 = s.findClosestNeighbour(userRepository.getUserList());
+        System.out.print(task3);
 
     }
 

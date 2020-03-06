@@ -40,6 +40,7 @@ public class Post {
     }
 
     public String toString(){
-        return userId+" "+ id +" "+title+" "+body;
+        return userId+" "+ id +" "+title+" "+body+"\n";
     }
+
 }

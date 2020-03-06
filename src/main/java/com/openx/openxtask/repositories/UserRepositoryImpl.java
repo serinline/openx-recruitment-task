@@ -17,9 +17,4 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-        UserRepositoryImpl p = new UserRepositoryImpl();
-        p.getUsers();
-
-    }
 }

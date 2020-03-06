@@ -18,8 +18,4 @@ public class PostRepositoryImpl implements PostRepository {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-//        PostRepositoryImpl p = new PostRepositoryImpl();
-//        p.getPosts();
-    }
 }

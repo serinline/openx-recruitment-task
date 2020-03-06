@@ -27,6 +27,10 @@ public class OpenxTaskApplication {
         task1 = s.countUsrPosts(userRepository.getUserList(), postRepository.getPostList());
         System.out.print(task1);
 
+        List<String> task2;
+        task2 = s.findNotUniqueTitles(postRepository.getPostList());
+        System.out.print(task2);
+
     }
 
 }

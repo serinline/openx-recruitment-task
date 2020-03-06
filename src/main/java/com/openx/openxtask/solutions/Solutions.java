@@ -3,10 +3,7 @@ package com.openx.openxtask.solutions;
 import com.openx.openxtask.models.Post;
 import com.openx.openxtask.models.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Solutions {
     LogicUtils utils = new LogicUtils();
@@ -23,9 +20,15 @@ public class Solutions {
         return usrPosts;
     }
 
-    List<String> findNotUniqueTitles(){
+    public List<String> findNotUniqueTitles(List<Post> posts){
         List<String> titles = new ArrayList<>();
-
+        Set<String> tmp = new HashSet<>();
+        for (Post p : posts){
+            boolean val = tmp.add(p.getTitle());
+            if (val == false){
+                titles.add(p.getTitle());
+            }
+        }
         return titles;
     }
 

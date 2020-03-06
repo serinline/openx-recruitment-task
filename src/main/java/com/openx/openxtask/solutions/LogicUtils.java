@@ -49,4 +49,16 @@ public class LogicUtils {
         return dist;
     }
 
+    public int findIndexOfMin(List<Double> arr){
+        int idx = 0;
+        Double min  = arr.get(0);
+        for (Double i : arr){
+            if(min > i){
+                min = i;
+                idx = arr.indexOf(i);
+            }
+        }
+        return idx;
+    }
+
 }

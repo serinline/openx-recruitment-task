@@ -32,7 +32,7 @@ public class OpenxTaskApplication {
         task2 = s.findNotUniqueTitles(postRepository.getPostList());
         System.out.print(task2);
 
-        Map<Integer, Double> task3;
+        Map<Integer, Integer> task3;
         task3 = s.findClosestNeighbour(userRepository.getUserList());
         System.out.print(task3);
 

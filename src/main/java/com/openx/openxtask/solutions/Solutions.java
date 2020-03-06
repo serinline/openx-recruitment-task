@@ -32,8 +32,8 @@ public class Solutions {
         return titles;
     }
 
-    public Map<Integer, Double> findClosestNeighbour(List<User> users){
-        Map<Integer, Double> neighbours = new HashMap<>();
+    public Map<Integer, Integer> findClosestNeighbour(List<User> users){
+        Map<Integer, Integer> neighbours = new HashMap<>();
         for (User start : users){
             List<Double> tmp = new ArrayList<>();
             for (User end : users){
@@ -42,8 +42,9 @@ public class Solutions {
                     tmp.add(d);
                 }
             }
-            Collections.sort(tmp);
-            neighbours.put(start.getId(), tmp.get(0));
+            //Collections.sort(tmp);
+            int idx = utils.findIndexOfMin(tmp);
+            neighbours.put(start.getId(), idx);
         }
 
         return neighbours;

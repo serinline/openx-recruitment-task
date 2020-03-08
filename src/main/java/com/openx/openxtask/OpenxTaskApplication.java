@@ -4,15 +4,14 @@ import com.openx.openxtask.repositories.PostRepositoryImpl;
 import com.openx.openxtask.repositories.UserRepositoryImpl;
 import com.openx.openxtask.solutions.Solutions;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import java.util.List;
 import java.util.Map;
 
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@SpringBootApplication
+
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class OpenxTaskApplication {
 
     public static void main(String[] args) {

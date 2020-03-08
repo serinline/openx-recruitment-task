@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
@@ -51,8 +52,18 @@ public class SolutionsTest {
             List<User> listUsersTest = new ArrayList<>(0);
             User user = new User();
             user.setId(1);
+            user.setUsername("User1");
+            User user2 = new User();
+            user2.setId(2);
+            user2.setUsername("User2");
             listUsersTest.add(user);
-            assertEquals(3, solutions.countUsrPosts(listUsersTest, listPostsTest));
+            listUsersTest.add(user2);
+            //assertEquals("", solutions.countUsrPosts(listUsersTest, listPostsTest));
+            List<String> testList = solutions.countUsrPosts(listUsersTest, listPostsTest);
+            List<String> expectedList = new ArrayList<>();
+            expectedList.add("User1 napisał(a) 3 postów. \n");
+            expectedList.add("User2 napisał(a) 0 postów. \n");
+            assertArrayEquals(expectedList.toArray(), testList.toArray());
         } catch (Exception e){}
     }
 

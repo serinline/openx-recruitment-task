@@ -26,7 +26,6 @@ public class LogicUtils {
 
     public Double getDistance(Geo start, Geo end){
         Double dist = 0.;
-        Double earthRadius = 6371.;
 
         Double lat1 = Double.parseDouble(start.getLat());
         Double lon1 = Double.parseDouble(start.getLng());
@@ -34,17 +33,13 @@ public class LogicUtils {
         Double lat2 = Double.parseDouble(end.getLat());
         Double lon2 = Double.parseDouble(end.getLng());
 
-        Double diffLat = Math.toRadians(lat2 - lat1);
         Double diffLon = Math.toRadians(lon2 - lon1);
 
-        Double lat1Rad = Math.toRadians(lat1);
-        Double lat2Rad = Math.toRadians(lat2);
+        Double phi1 = Math.toRadians(lat1);
+        Double phi2 = Math.toRadians(lat2);
 
-        Double angle = Math.pow(Math.sin(diffLat / 2), 2) +
-                        Math.pow(Math.sin(diffLon / 2), 2) *
-                        Math.cos(lat1Rad) *
-                        Math.cos(lat2Rad);
-        dist = 2 * earthRadius * Math.asin(Math.sqrt(angle));
+        dist = Math.acos((Math.sin(phi1)*Math.sin(phi2))
+                        + (Math.cos(phi1)*Math.cos(phi1)*Math.cos(diffLon)));
 
         return dist;
     }

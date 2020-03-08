@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,15 +25,15 @@ public class OpenxTaskApplication {
 
         List<String> task1;
         task1 = s.countUsrPosts(userRepository.getUserList(), postRepository.getPostList());
-        System.out.print(task1);
+        System.out.println(task1);
 
         List<String> task2;
         task2 = s.findNotUniqueTitles(postRepository.getPostList());
-        System.out.print(task2);
+        System.out.println(task2);
 
         Map<Integer, Integer> task3;
         task3 = s.findClosestNeighbour(userRepository.getUserList());
-        System.out.print(task3);
+        System.out.println(task3);
 
     }
 

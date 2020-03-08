@@ -23,7 +23,7 @@ public class OpenxTaskApplication {
         userRepository.getUsers();
 
         List<String> task1;
-        task1 = s.countUsrPosts(userRepository.getUserList(), postRepository.getPostList());
+        task1 = s.printUsersAndPosts(userRepository.getUserList(), postRepository.getPostList());
         System.out.println(task1);
 
         List<String> task2;

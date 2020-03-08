@@ -10,12 +10,14 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.*;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 @SpringBootTest
 public class SolutionsTest {
@@ -58,12 +60,12 @@ public class SolutionsTest {
             user2.setUsername("User2");
             listUsersTest.add(user);
             listUsersTest.add(user2);
-            //assertEquals("", solutions.countUsrPosts(listUsersTest, listPostsTest));
-            List<String> testList = solutions.countUsrPosts(listUsersTest, listPostsTest);
-            List<String> expectedList = new ArrayList<>();
-            expectedList.add("User1 napisał(a) 3 postów. \n");
-            expectedList.add("User2 napisał(a) 0 postów. \n");
-            assertArrayEquals(expectedList.toArray(), testList.toArray());
+            Map<Integer, Integer> expectedMap = new HashMap<>();
+            expectedMap.put(1, 3);
+            expectedMap.put(2, 0);
+            Map<Integer, Integer> actualMap = new HashMap<>();
+            solutions.fillPostsMap(actualMap, listUsersTest, listPostsTest);
+            assertThat(actualMap, is(expectedMap));
         } catch (Exception e){}
     }
 

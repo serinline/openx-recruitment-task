@@ -8,10 +8,21 @@ import java.util.*;
 public class Solutions {
     LogicUtils utils = new LogicUtils();
 
-    public List<String> countUsrPosts(List<User> users, List<Post> posts){
+    public void fillPostsMap(Map<Integer, Integer> map, List<User> users, List<Post> posts){
+        for (User u : users){
+            map.put(u.getId(), 0);
+        }
+        for (Post p : posts){
+            int usrId = p.getUserId();
+            int val = map.get(usrId);
+            map.put(usrId, ++val);
+        }
+    }
+
+    public List<String> printUsersAndPosts(List<User> users, List<Post> posts){
         List<String> usrPosts = new ArrayList<>();
         Map<Integer, Integer> tmp = new HashMap<>();
-        utils.fillPostsMap(tmp, users, posts);
+        fillPostsMap(tmp, users, posts);
         for (User u : users){
             String usrname = u.getUsername();
             Integer count = tmp.get(u.getId());

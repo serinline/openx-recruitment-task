@@ -1,31 +1,18 @@
 package com.openx.openxtask.solutions;
 
 import com.openx.openxtask.models.Geo;
-import com.openx.openxtask.models.Post;
-import com.openx.openxtask.models.User;
 
 import java.util.List;
-import java.util.Map;
 
 public class LogicUtils {
 
-//    public void fillPostsMap(Map<Integer, Integer> map, List<User> users, List<Post> posts){
-//        for (User u : users){
-//            map.put(u.getId(), 0);
-//        }
-//        for (Post p : posts){
-//            int usrId = p.getUserId();
-//            int val = map.get(usrId);
-//            map.put(usrId, ++val);
-//        }
-//    }
 
     public void fillUsersList(List<String> list, String username, Integer count){
         list.add(username + " napisał(a) " + count + " postów. \n");
     }
 
     public Double getDistance(Geo start, Geo end){
-        Double dist = 0.;
+        //Double dist = 0.;
 
         Double lat1 = Double.parseDouble(start.getLat());
         Double lon1 = Double.parseDouble(start.getLng());
@@ -33,15 +20,31 @@ public class LogicUtils {
         Double lat2 = Double.parseDouble(end.getLat());
         Double lon2 = Double.parseDouble(end.getLng());
 
-        Double diffLon = Math.toRadians(lon2 - lon1);
+        //Double diffLon = Math.toRadians(lon2 - lon1);
 
-        Double phi1 = Math.toRadians(lat1);
-        Double phi2 = Math.toRadians(lat2);
+//        Double phi1 = Math.toRadians(lat1);
+//        Double phi2 = Math.toRadians(lat2);
 
-        dist = Math.acos((Math.sin(phi1)*Math.sin(phi2))
-                        + (Math.cos(phi1)*Math.cos(phi1)*Math.cos(diffLon)));
+//        dist = Math.acos((Math.sin(phi1)*Math.sin(phi2))
+//                        + (Math.cos(phi1)*Math.cos(phi1)*Math.cos(diffLon)));
 
-        return dist;
+
+        final int R = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c ; // convert to meters
+
+        double height = lat1 - lat2;
+
+        distance = Math.pow(distance, 2) + Math.pow(height, 2);
+
+        return Math.sqrt(distance);
+
     }
 
     public int findIndexOfMin(List<Double> arr){
@@ -55,5 +58,4 @@ public class LogicUtils {
         }
         return idx;
     }
-
 }

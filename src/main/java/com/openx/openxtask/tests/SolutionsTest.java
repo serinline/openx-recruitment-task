@@ -4,13 +4,16 @@ package com.openx.openxtask.tests;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openx.openxtask.models.Geo;
 import com.openx.openxtask.models.Post;
 import com.openx.openxtask.models.User;
+import com.openx.openxtask.solutions.LogicUtils;
 import com.openx.openxtask.solutions.Solutions;
 import net.minidev.json.JSONValue;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +34,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class SolutionsTest {
 
     @Autowired
-    Solutions solutions;
+    Solutions solutions = new Solutions();
+
+    @Autowired
+    LogicUtils logicUtils = new LogicUtils();
 
 //    String usersTestJson =
 //            "[\n" +
@@ -55,54 +61,53 @@ public class SolutionsTest {
 //            "]";
 
 
-    JSONArray fillJSONArray() throws JSONException {
-        JSONArray arr = new JSONArray();
-        JSONObject obj1 = new JSONObject();
-        obj1.put("userId", 1);
-        obj1.put("id", 1);
-        obj1.put("title", "sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
-        obj1.put("body", "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas");
-        JSONObject obj2 = new JSONObject();
-        obj2.put("userId", 1);
-        obj2.put("id", 2);
-        obj2.put("title", "sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
-        obj2.put("body", "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas");
-        JSONObject obj3 = new JSONObject();
-        obj3.put("userId", 1);
-        obj3.put("id", 3);
-        obj3.put("title", "sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
-        obj3.put("body", "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas");
-
-        arr.put(obj1);
-        arr.put(obj2);
-        arr.put(obj3);
-
-        return arr;
-    }
-
-
-//    @Test
-//    @JsonIgnoreProperties(ignoreUnknown = true)
-//    public void testCountUsrPosts() throws Exception {
-//        ObjectMapper mapper = new ObjectMapper();
-//        JSONArray arr = fillJSONArray();
-//        //List<Post> listPostsTest = Arrays.asList(mapper.readValue(String.valueOf(arr), Post[].class));
-//        List<Post> listPostsTest = mapper.readValue(new File("D:\\openx-task\\src\\main\\java\\com\\openx\\openxtask\\tests\\postsTest.json"), mapper.getTypeFactory().constructCollectionType(List.class, Post.class));
-//        //List<User> listUsersTest = new ArrayList<>(0);
-//        List<User> listUsersTest = mapper.readValue(new URL("https://jsonplaceholder.typicode.com/users"), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
-//        User user = new User();
-//        user.setId(1);
-//        User user2 = new User();
-//        user2.setId(2);
-//        listUsersTest.add(user);
-//        listUsersTest.add(user2);
-//        Map<Integer, Integer> expectedMap = new HashMap<>();
-//        expectedMap.put(1, 3);
-//        expectedMap.put(2, 0);
-//        Map<Integer, Integer> actualMap = solutions.fillPostsMap(listUsersTest, listPostsTest);
-//        System.out.println(actualMap);
-//        assertThat(actualMap, is(expectedMap));
+//    JSONArray fillJSONArray() throws JSONException {
+////        JSONArray arr = new JSONArray();
+////        JSONObject obj1 = new JSONObject();
+////        obj1.put("userId", 1);
+////        obj1.put("id", 1);
+////        obj1.put("title", "sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
+////        obj1.put("body", "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas");
+////        JSONObject obj2 = new JSONObject();
+////        obj2.put("userId", 1);
+////        obj2.put("id", 2);
+////        obj2.put("title", "sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
+//        obj2.put("body", "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas");
+//        JSONObject obj3 = new JSONObject();
+//        obj3.put("userId", 1);
+//        obj3.put("id", 3);
+//        obj3.put("title", "sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
+//        obj3.put("body", "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas");
+//
+//        arr.put(obj1);
+//        arr.put(obj2);
+//        arr.put(obj3);
+//
+//        return arr;
 //    }
+
+
+    @Test
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public void testCountUsrPosts() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        List<Post> listPostsTest = mapper.readValue(new File("D:\\openx-task\\src\\main\\java\\com\\openx\\openxtask\\tests\\postsTest.json"), mapper.getTypeFactory().constructCollectionType(List.class, Post.class));
+        List<User> listUsersTest = mapper.readValue(new URL("https://jsonplaceholder.typicode.com/users"), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+        User user = new User();
+        user.setId(1);
+        User user2 = new User();
+        user2.setId(2);
+        listUsersTest.add(user);
+        listUsersTest.add(user2);
+        Map<Integer, Integer> expectedMap = new HashMap<>();
+        expectedMap.put(1, 3);
+        for (int i=2; i<listUsersTest.size()-1; i++){
+            expectedMap.put(i, 0);
+        }
+        Map<Integer, Integer> actualMap = solutions.fillPostsMap(listUsersTest, listPostsTest);
+        System.out.println(actualMap);
+        Assert.assertThat(actualMap, is(expectedMap));
+    }
 
     @Test
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -112,7 +117,22 @@ public class SolutionsTest {
 
         List<String> testList = solutions.findNotUniqueTitles(listPostsTest);
         int count = testList.size();
-        assertEquals(3, count);
+        assertEquals(1, count);
+    }
+
+    @Test
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public void testFindClosestNeighbour(){
+        Geo cracow = new Geo();
+        cracow.setLat("50.0614300");
+        cracow.setLng("19.9365800");
+        Geo gdansk = new Geo();
+        gdansk.setLng("18.6463700");
+        gdansk.setLat("54.3520500");
+
+        Double dist = logicUtils.getDistance(cracow, gdansk);
+        assertEquals(485, Math.round(dist));
+
     }
 
 }

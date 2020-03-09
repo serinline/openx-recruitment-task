@@ -1,19 +1,9 @@
 package com.openx.openxtask.solutions;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openx.openxtask.models.Post;
 import com.openx.openxtask.models.User;
-import org.junit.Test;
 
-import java.io.File;
-import java.net.URL;
 import java.util.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-
 
 public class Solutions {
     LogicUtils utils = new LogicUtils();
@@ -34,7 +24,6 @@ public class Solutions {
     public List<String> printUsersAndPosts(List<User> users, List<Post> posts){
         List<String> usrPosts = new ArrayList<>();
         Map<Integer, Integer> tmp = fillPostsMap(users, posts);
-        //fillPostsMap(users, posts);
         for (User u : users){
             String usrname = u.getUsername();
             Integer count = tmp.get(u.getId());
@@ -63,7 +52,6 @@ public class Solutions {
             for (User end : users){
                 if(!start.equals(end)) {
                     Double d = utils.getDistance(start.getAddress().getGeo(), end.getAddress().getGeo());
-                    System.out.println(d);
                     tmp.add(d);
                 }
             }
@@ -73,11 +61,5 @@ public class Solutions {
 
         return neighbours;
     }
-
-
-
-
-
-
 }
 

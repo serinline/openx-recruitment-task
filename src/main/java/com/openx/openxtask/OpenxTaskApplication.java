@@ -22,14 +22,17 @@ public class OpenxTaskApplication {
         UserRepositoryImpl userRepository = new UserRepositoryImpl();
         userRepository.getUsers();
 
+        System.out.println("Point 1");
         List<String> task1;
         task1 = s.printUsersAndPosts(userRepository.getUserList(), postRepository.getPostList());
         System.out.println(task1);
 
+        System.out.println("Point 2");
         List<String> task2;
         task2 = s.findNotUniqueTitles(postRepository.getPostList());
         System.out.println(task2);
 
+        System.out.println("Point 3");
         Map<Integer, Integer> task3;
         task3 = s.findClosestNeighbour(userRepository.getUserList());
         System.out.println(task3);

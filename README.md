@@ -1,1 +1,1 @@
-"# openx-recruitment-task" 
+my solution for OpenX Internship task 

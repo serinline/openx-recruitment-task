@@ -10,6 +10,16 @@ public class User {
     String website;
     Company company;
 
+//    public User(int id){
+//        this.setId(id);
+//        this.setUsername("default");
+//        this.setAddress(new Address());
+//        this.setPhone("phone");
+//        this.setEmail("email");
+//        this.setWebsite("web");
+//        this.setCompany(new Company());
+//    }
+
     public String getName() {
         return name;
     }
